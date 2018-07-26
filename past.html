@@ -1,0 +1,24 @@
+---
+layout: default
+title: Past
+---
+
+<ul class="performance-list list-unstyled">
+{% assign sorted_performances = site.performances | sort: 'date' | reverse %}
+{% assign today = site.time | date: "%s" %}
+{% for performance in sorted_performances %}
+  {% assign date = performance.date | date: "%s" %}
+  {% if today >= date %}
+  <li>
+    {{ performance.date | date: "%Y-%m-%d" }}&nbsp;
+    <a class="post-link" href="{{ performance.website }}">{{ performance.name }}</a>
+    {% if performance.location %}
+    &nbsp;<small>{{ performance.location }}</small>
+    {% endif %}
+    {% if performance.video %}
+    <a class="post-link" href="{{ performance.video }}">&nbsp;Video</a>
+    {% endif %}
+  </li>
+  {% endif %}
+{% endfor %}
+</ul>

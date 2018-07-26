@@ -1,0 +1,37 @@
+---
+layout: default
+title: Upcoming
+---
+
+<script>
+function dateTimestamp(date = undefined) {
+  var day = (date == undefined) ? new Date() : new Date(date);
+  return day.setHours(0, 0, 0, 0)
+}
+
+var today = dateTimestamp();
+</script>
+<ul class="performance-list list-unstyled">
+{% assign sorted_performances = site.performances | sort: 'date' %}
+{% assign today = site.time | date: "%s" %}
+{% for performance in sorted_performances %}
+  {% assign date = performance.date | date: "%s" %}
+  {% if today < date %}
+  <li id='{{ forloop.index }}'>
+    {{ performance.date | date: "%Y-%m-%d" }}&nbsp;
+    <a class="post-link" href="{{ performance.website }}">{{ performance.name }}</a>
+    {% if performance.location %}
+    &nbsp;<small>{{ performance.location }}</small>
+    {% endif %}
+    <script>
+      if (today == dateTimestamp('{{ performance.date | date: "%Y-%m-%d" }}')) {
+        document.write('<span class="label label-success">Happening Today</span>');
+      }
+      if (today > dateTimestamp('{{ performance.date | date: "%Y-%m-%d" }}')) {
+        document.getElementById('{{ forloop.index }}').style.color="gray";
+      }
+    </script>
+  </li>
+  {% endif %}
+{% endfor %}
+</ul>

@@ -1,0 +1,20 @@
+---
+layout: none
+uid_prefix: http://theater.nightlynexus.com/
+---
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:http://theater.nightlynexus.com/
+METHOD:PUBLISH
+{% for performance in site.performances %}BEGIN:VEVENT
+UID:{{ page.uid_prefix }}{{ performance.relative_path }}
+URL:{{ performance.website }}
+DESCRIPTION:{{ performance.website }}{% if performance.location %}
+LOCATION:{{ performance.location }}{% endif %}
+SUMMARY:{{ performance.name }}{% if performance.location %} ({{ performance.location }}){% endif %}
+CLASS:PUBLIC
+DTSTART;VALUE=DATE:{{ performance.date | date: "%Y%m%d" }}
+DTEND;VALUE=DATE:{{ performance.date | date: "%s" | plus: 86400 | date: "%Y%m%d" }}
+DTSTAMP:{{ site.time | date: "%Y%m%dT%H%M%S" }}Z
+END:VEVENT
+{% endfor %}END:VCALENDAR
