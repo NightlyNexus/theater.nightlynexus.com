@@ -24,10 +24,10 @@ var today = dateTimestamp();
     &nbsp;<small>{{ performance.location }}</small>
     {% endif %}
     <script>
-      if (today == dateTimestamp('{{ performance.date | date: "%Y-%m-%d" }}')) {
+      if (today == dateTimestamp('{{ performance.date }}')) {
         document.write('<span class="label label-success">Happening Today</span>');
       }
-      if (today > dateTimestamp('{{ performance.date | date: "%Y-%m-%d" }}')) {
+      if (today > dateTimestamp('{{ performance.date }}')) {
         document.getElementById('{{ forloop.index }}').style.color="gray";
       }
     </script>
