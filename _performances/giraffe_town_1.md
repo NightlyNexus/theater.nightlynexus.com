@@ -1,5 +1,5 @@
 ---
-name: "The Deconstruction"
+name: "Giraffe Town"
 website: https://www.facebook.com/events/2095817960659768/
 location: San Francisco, California, USA
 
